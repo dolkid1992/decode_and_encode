@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+
+    document.write(myFunction("xinchao", "ufo"))
+
+    function myFunction(s, key) {
+
+        var input = s.concat(key);
+
+        var listK = new Array(key.length);
+        var listKCodeAt = new Array(key.length)
+
+        var listIn = new Array(input.length);
+
+        var listShifted = new Array(input.length);
+        var listShiftCodeAt = new Array(input.length);
+
+        var listNew = new Array(input.length)
+        var listNewCodeAt = new Array(input.length)
+        var newString = "";
+        for (var j = 0; j < key.length; j++) {
+            listK[j] = key.charAt(j);
+            listKCodeAt[j] = key.charCodeAt(j);
+        }
+
+        for (var i = 0; i < input.length; i++) {
+            listIn[i] = input.charAt(i);
+        }
+
+        //step 4
+        for (var p = 0; p < 5; p++) {
+            if (newString != '') {
+                input = newString;
+            }
+
+            //step 2
+            for (var m = 0; m < input.length; m++) {
+                if (m + key.length < input.length) {
+                    listShifted[(m + key.length)] = listIn[m];
+                    listShiftCodeAt[(m + key.length)] = input.charCodeAt(m);
+                } else {
+                    listShifted[(m + key.length) % (input.length)] = listIn[m];
+                    listShiftCodeAt[(m + key.length) % (input.length)] = input.charCodeAt(m);
+                }
+            }
+
+
+            //step 3
+
+            for (var k = 0; k < input.length; k++) {
+                if (k < key.length) {
+                    listNewCodeAt[k] = listShiftCodeAt[k] + listKCodeAt[k];
+                } else {
+                    listNewCodeAt[k] = listShiftCodeAt[k] + listKCodeAt[(k - key.length) % key.length];
+                }
+                listNew[k] = String.fromCharCode(listNewCodeAt[k]);
+            }
+
+
+            for (var i = 0; i < input.length; i++) {
+                newString = newString.concat(listNew[i]);
+            }
+            alert(newString);
+        }
+        return newString;
+    }
+</script>
+
+</body>
+</html>
