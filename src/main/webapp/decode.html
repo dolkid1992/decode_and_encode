@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+    <meta charset="UTF-8">
+    <title>Decode</title>
+</head>
 
+<body>
 
 <script>
 
-    document.write(myFunction("êÌÞíÏÝØÎÐä","ufo
-    function myFunction(input,key) {
+    document.write(myFunction("ÉËÇÆÈÊ", "def"));
+
+    function myFunction(input, key) {
         var listNew = new Array(input.length);
         var listNewCodeAt = new Array(input.length);
 
@@ -14,9 +19,37 @@
         var listKCodeAt = new Array(key.length);
 
         var listShifted = new Array(input.length);
-        var listShiftCodeAt = new Array(input.length);
 
+        var listIn = new Array(input.length);
+        var listInCodeAt = new Array(input.length)
 
+        for (var i = 0; i < input.length; i++) {
+            listNew[i] = input.charAt(i);
+            listNewCodeAt[i] = input.charCodeAt(i)
+        }
+
+        for (var j = 0; j < key.length; j++) {
+            listK[j] = key.charAt(i)
+            listKCodeAt[j] = key.charCodeAt(j)
+        }
+
+        for (var k = 0; k < input.length; k++) {
+            if (k < key.length) {
+                listShifted[k] = listNewCodeAt[k] - listKCodeAt[k]
+            } else {
+                listShifted[k] = listNewCodeAt[k] - listKCodeAt[(k - key.length) % key.length];
+            }
+        }
+
+        for(var m = 0; m < input.length; m++){
+            listInCodeAt[m] = listShifted[(m + key.length) % input.length]
+            listIn[m] = String.fromCharCode(listInCodeAt[m])
+        }
+        // var string ="";
+        // for (var i = 0; i < input.length; i++) {
+        //     string = string.concat(listNew[i]);
+        // }
+        return listIn;
     }
 </script>
 

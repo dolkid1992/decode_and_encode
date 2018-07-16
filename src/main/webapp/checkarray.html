@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // document.write(decode("ÉËÇÆÈÊÈ", "def"));
+
+    document.write(decode("тҢ⊞ЭЏ҅⌦јϘњҊԠѥРЏҊԟѥПЏԳ⌂ЗХѐҐҦЗФ⊐ҋџўСӐтҳѩ⊃ЏҖ⌐ѫϘѝҊ⋤ѫϘђҊҮЗУїԃҢџϘїԂҭўϦњ҆ѢМВжѕԛџѣҘќбҘҨ⊾ЛЏѸԎѫЗФѤԅҐџљ≧ѣбԳ⋦ѬϘѣ⋼тҵѠ≿ђбҖԫѤϘїѺ⋥ҴЗУїӲ҅ҧЗРӏѿ҉ѫЗМ⊺ѴҊџѭ⊝Џ҇ԂџѥРѤ", "kd#%ZG"))
+
+    function decode(input, key) {
+
+        //done
+        var inputCharArray = new Array(input.length);
+        var inputCodeArray = new Array(input.length);
+
+        var keyCharArray = new Array(key.length);
+        var keyCodeArray = new Array(key.length);
+
+        var shifted = "";
+        var shiftedCharArray = new Array(input.length);
+        var shiftedCodeArray = new Array(input.length);
+
+        var newInput = "";
+        var newCharArray = new Array(input.length);
+        var newCodeArray = new Array(input.length);
+
+        //done
+        var check = false;
+
+        //done
+        for (var i = 0; i < key.length; i++) {
+            keyCharArray[i] = key.charAt(i);
+            keyCodeArray[i] = key.charCodeAt(i);
+        }
+        var s = 0;
+        //done by minh
+        while (!check) {
+
+            shifted = "";
+
+            //done
+            for (var p = 0; p < input.length; p++) {
+                inputCharArray[p] = input.charAt(p);
+                inputCodeArray[p] = input.charCodeAt(p);
+                shiftedCharArray[p] = input.charAt(p);
+                shiftedCodeArray[p] = input.charCodeAt(p);
+                newCodeArray[p] = input.charCodeAt(p);
+            }
+
+            //Step 3
+            //done
+            for (var z = 0; z < input.length; z++) {
+                shiftedCodeArray[z] = inputCodeArray[z] - keyCodeArray[z % key.length];
+                shiftedCharArray[z] = String.fromCharCode(shiftedCodeArray[z]);
+                shifted = shifted.concat(shiftedCharArray[z]);
+            }
+            console.log(shiftedCodeArray);
+            //Step 2
+            //done
+            for (var l = 0; l < input.length; l++) {
+                newCodeArray[l] = shiftedCodeArray[(l + keyCodeArray.length - 1) %  newCodeArray.length];
+                newCharArray[l] = String.fromCharCode(newCodeArray[l]);
+            }
+            newInput = "";
+            for (var v = 0; v < input.length; v++) {
+                newInput = newInput.concat(newCharArray[v]);
+            }
+            console.log(newInput);
+            input = newInput;
+
+            //check = (newInput.substring((newInput.length - key.length), newInput.length) === key.value);
+            check = newInput.indexOf(key) >= 0;
+            s++;
+        }
+
+        //Step 1
+
+
+        input = newInput.substring(0, newInput.length - key.length);
+
+        return input;
+    }
+
+</script>
+</body>
+</html>

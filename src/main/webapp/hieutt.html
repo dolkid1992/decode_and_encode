@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Decode</title>
+</head>
+<body>
+<H1>Decode</H1>
+<script>
+    document.write(decode("ƑƕƓƎƒƖ", "def"));
+
+    function decode(input, key) {
+        var inputChatAt = new Array(input.length);
+        var inputCodeAt = new Array(input.length);
+
+        var keyChatAt = new Array(key.length);
+        var keyCodeAt = new Array(key.length);
+
+        var shiftedChatAt = new Array(input.length);
+        var shiftedCodeAt = new Array(input.length);
+
+        var newInput = "";
+        var newChatAt = new Array(input.length);
+        var newCodeAt = new Array(input.length);
+
+        var b = 0;
+        while (b < 5) {
+
+            for (var i = 0; i < input.length; i++) {
+                inputChatAt[i] = input.charAt(i);
+                inputCodeAt[i] = input.charCodeAt(i);
+                shiftedChatAt[i] = input.charAt(i);
+                shiftedCodeAt[i] = input.charCodeAt(i);
+            }
+
+            for (var i = 0; i < key.length; i++) {
+                keyChatAt[i] = key.charAt(i);
+                keyCodeAt[i] = key.charCodeAt(i);
+            }
+
+            //Step 3
+            for (var z = 0; z < input.length; z++) {
+                shiftedCodeAt[z] = inputCodeAt[z] - keyCodeAt[z % key.length];
+                shiftedChatAt[z] = String.fromCharCode(shiftedCodeAt[z]);
+            }
+
+            //Step 2
+            for (var l = 0; l < input.length; l++) {
+                newCodeAt[l] = shiftedCodeAt[(input.length + l + keyChatAt.length - 1) % input.length];
+                newChatAt[l] = String.fromCharCode(newCodeAt[l]);
+            }
+            newInput = "";
+            for (var v = 0; v < input.length; v++) {
+                newInput = newInput.concat(newChatAt[v]);
+            }
+            input = newInput;
+            b++;
+        }
+        input = newInput.substring(0, newInput.length - key.length);
+
+
+        return input;
+    }
+</script>
+</body>
+</html>

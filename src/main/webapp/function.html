@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   // document.write(f("xinchao", "ef"))
+    document.write(f("nchaoxi", "ef"))
+
+    function f(input, key) {
+        var xxx = "";
+        var inputCodeArray = new Array(input.length);
+
+        var keyCodeArray = new Array(key.length);
+
+        var newCharArray = new Array(input.length);
+        var newCodeArray = new Array(input.length);
+
+        for (var i = 0; i < key.length; i++) {
+            keyCodeArray[i] = key.charCodeAt(i);
+        }
+
+        //done
+        for (var p = 0; p < input.length; p++) {
+            inputCodeArray[p] = input.charCodeAt(p);
+        }
+
+        for (var l = 0; l < input.length; l++) {
+           // newCodeArray[l] = inputCodeArray[(l + keyCodeArray.length) % input.length];
+            newCodeArray[(l + keyCodeArray.length) % input.length] = inputCodeArray[l];
+            newCharArray[l] = String.fromCharCode(newCodeArray[l]);
+            xxx = xxx.concat(newCharArray[l]);
+        }
+
+
+        return xxx;
+    }
+</script>
+</body>
+</html>
